@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初识vue</title>
+    <script type="text/javascript " src="/js/vue.js"></script>
+</head>
+
+<body>
+    <!--
+          js表达式：一个表达式生成一个值，放在任何一个需要值的地方
+                例如 (1).a (2) 1+b (3) demo(1) （4) x===y ? 1 : 0
+          js语句： if while for...
+          
+          注意:一个vue实例不可能去接管多个容器，如果有多个容器的情况，vue事例永远只接管第一个容器
+          不能多个vue实例同时来接管同一个容器，如果有多个的情况下永远是第一个vue实例来接管该容器
+          vue实例与容器直接的对应关系是一对一的
+          
+          
+    -->
+    <div id="root">
+        <!-- {{}}是插值语法  -->
+        <h1>HELLO,{{name.toUpperCase()}},  {{address}},  {{1+1}}</h1>
+
+        <hr>
+
+        <h1>指令语法</h1>
+
+        <!-- v-bind:  可以简写为  : -->
+        <a v-bind:href="url" v-bind:x="hello">去B站休息一下吧</a>
+        <a :href="url" :x="hello">去B站休息一下吧!</a>
+        <a :href="youku.url" :x="hello">去   {{youku.name}}   休息一下吧!</a>
+
+        <br>
+        <hr>
+
+
+        
+    </div>
+    <!-- 
+    <div class="root">
+        <h1>HELLO,{{name}}</h1>
+    </div> -->
+
+    <script type="text/javascript ">
+        Vue.config.productionTip=false;//组织vue在启动时候生成提示
+          
+        new Vue({
+            el:'#root',// document.getElementById('root') 
+            data:{
+                name:'shanlianjing',
+                address:'haerbin',
+                url:'http://www.bilibili.com',
+                hello:'nihao',
+                youku:{
+                    name:'jindong',
+                    url:'http://www.jd.com'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

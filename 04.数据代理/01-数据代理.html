@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+     <script>
+        let number=18
+        let person ={
+            name:'zhangsan',
+            sex:'man'
+        }
+        /*
+        Object.defineProperty(xxx,'xxx',{})
+        三个参数：
+        第一个：是参数名称，第二个是要修改（添加的参数对象），第三个是要修改的函数。
+
+        
+        */
+        Object.defineProperty(person,'age',{
+            // value:18,//默认是不可以修改的
+            // enumerable:true,//控制属性改为可以枚举，默认值为false
+            // writable:true,//表示这个属性可以被修改，默认值为false
+            // configurable:true,//表示控制属性可否被删除，默认值为false
+
+
+            // 当有人在读取age时，get(getter)就会被调用，而且返回值是number
+            get(){
+                console.log('有人在读取age属性了');
+                return number;
+            },
+
+            // 大概有人在修改age属性的时候，set(setter)就会被调用，且接收到具体的返回值
+            set(value){
+                console.log('有人在修改age这个属性了');
+                number=value;
+            }
+
+        })
+
+        console.log(person);
+    </script>
+</body>
+</html>
