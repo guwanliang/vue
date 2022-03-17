@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>学生信息</h1>
+        <button @click="student.age++" v-once> 年龄加一岁</button><br>
+
+        <button @click="addSex">添加一个性别属性</button><br>
+        <button @click="student.sex='未知' ">修改一个性别为未知</button><br>
+        <button @click="addFriends">在列表首位添加一个朋友</button><br>
+        <button @click="undataFriendsName">修改第一个朋友名字为张三</button><br>
+        <button @click="addHobby">添加一个爱好</button>
+        <button @click="updataHobby">修改第一个爱好:拉屎</button>
+
+        <h3>姓名：{{student.name}}</h3>
+        <h3>年龄：{{student.age}}</h3>
+        <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+        <h3>爱好：</h3>
+        <ul>
+            <li v-for="(h,index) in student.hobby" :key="index">
+                {{h}}
+            </li>
+        </ul>
+        <h3>朋友们</h3>
+        <ul>
+            <li v-for="(f,index) in student.friends" :key="index">
+                {{f.name}}---{{f.age}}
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                student: {
+                    name: '小明',
+                    age: 19,
+                    hobby: [
+                        '抽烟', '喝酒', '烫头'
+                    ],
+                    friends: [
+                        { name: 'jerry', age: 35 },
+                        { name: 'tom', age: 19 }
+                    ]
+                }
+            },
+            methods: {
+                addSex() {
+                    // Vue.set(this.student,'sex','男');
+                    this.$set(this.student, 'sex', '男');
+                },
+                addFriends() {
+                    this.student.friends.unshift({
+                        name: 'jack',
+                        age: '65',
+                    })
+                },
+                undataFriendsName() {
+                    this.student.friends[0].name = '张三'
+                },
+                addHobby(){
+                    this.student.hobby.push('学习');
+
+                },
+                updataHobby(){
+                    // this.student.hobby[0]='拉屎' 这种发放是行不通的
+                    this.$set(this.student.hobby,'0','拉屎')
+                }
+            },
+        })
+
+    </script>
+
+</body>
+
+</html>

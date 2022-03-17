@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!--
+			v-for指令:
+						1.用于展示列表数据
+						2.语法：v-for="(item, index) in xxx" :key="yyy"
+						3.可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少）
+	    -->
+        <h2> 人员信息</h2>
+        <ul>
+            <!-- 这里的key值相当于value，作为唯一标识和后端对接 -->
+            <!-- 遍历数组 -->
+            <li v-for="(person,index) in persons" :key="person.id">
+                {{person.name}} - {{person.age}} - {{person.id}}
+            </li>
+        </ul>
+        <h2>动漫信息</h2>
+        <!-- 遍历对象 -->
+        <ul>
+            <!--注意遍历对象的时候先收到的是每一项的属性的value，第二项是对应的键名:key-->
+            <!--v-for(for in// for of)可以接受到两个参数,一个是当前的元素另一个是当前元素的索引 类似于下面的person,index-->
+            <li v-for="(value,key) in cartoons" :key="key">
+                {{key}} - {{value}}
+            </li>
+        </ul>
+
+        <!-- 遍历字符串 -->
+        <h2>遍历字符串</h2>
+         <!--注意遍历字符串的时候先收到的是字符串中每一个字符，第二项是其对应的索引index-->
+        <ul>
+            <li v-for="(c,index) of str" :key="index">
+                {{index}} - {{c}} 
+            </li>
+        </ul>
+
+        <!--遍历指定次数-->
+        <h2>遍历指定次数</h2>
+        <ul>
+            <li v-for="(num,index) in 5" :key="index">
+                {{index}} - {{num}}
+            </li>
+        </ul>
+
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '张三', age: 18 },
+                    { id: '002', name: '张四', age: 18 },
+                    { id: '003', name: '张五', age: 18 },
+                ],
+                cartoons: {
+                    name: 'on piece',
+                    tv: 'bilibili',
+                    from: 'tokyo'
+                },
+                str:'wanitasi'
+
+            }
+        })
+    </script>
+</body>
+
+</html>
