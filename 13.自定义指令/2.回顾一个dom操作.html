@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-clock] {
+            display: none;
+        }
+    </style>
+    <script src="/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>{{name}}</h2>
+        <h2>当前n的值为：<span v-text="n"></span></h2>
+        <!-- <h2>放大十倍的n为：<span v-big="n"></span></h2> -->
+
+        <!-- vuez中命名法不用驼峰命名法，用加“-”的方法，但是在定义的时候，要记得给这个名称加上引号 -->
+        <h2>放大十倍的n为：<span v-big-number="n"></span></h2>
+
+        <button @click="n++">点我n+1</button>
+
+        <hr>
+
+        <input type="text" v-fbind:value="n">
+
+
+
+    </div>
+    <div id="root2">
+        <input type="text" v-fbind:value="n">
+
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        // 全局定义fbind！！跟过滤器定义差不多
+        Vue.directive('fibind', {
+            bind(element, binding) {
+                element.value = binding.value
+            },
+            inserted(element, binding) {
+                element.focus()
+            },
+            updated(element, binding) {
+                element.value = binding.value;
+                element.focus()
+
+            }
+        })
+        new Vue({
+            el: '#root',
+            data: {
+                name: 'hello',
+                n: 1,
+                tishi: 1
+            },
+
+            // directives直接操作dom,他的里面所有的函数的this都是指的是window！！！！
+            directives: {
+                // big函数何时会被调用呢？  1：指令与元素成功绑定时（一上来），     2：指令所在模板被重新解析时
+
+                //完成把数值扩大十倍的功能
+                // 名称要加引号
+                // 'big-number':function(element, binding) {
+                // 简写为
+                'big-number'(element, binding) {
+                    console.log('big');
+                    element.innerText = binding.value * 10
+                }
+            }
+        })
+        new Vue({
+            el: '#root2',
+            data: {
+                name: 'hello',
+                n: 1,
+                tishi: 1
+            },
+        })
+    </script>
+</body>
+
+</html>
